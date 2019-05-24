@@ -1,6 +1,7 @@
 const path = require('path')
 const http = require('http')
 const express = require('express')
+const { generateMessage } = require('./utils/messages')
 
 const app = express()
 const server = http.createServer(app)
@@ -13,19 +14,19 @@ app.use(express.static(publicDirPath))
 io.on('connection', (socket) => {
     console.log("New Connection!!")
     socket.on('newUser', () => {
-        socket.emit('message', "Welcome to chat app!")
-        socket.broadcast.emit('message', "A new user joined!!")
+        socket.emit('message', generateMessage('Welcome!'))
+        socket.broadcast.emit('message', generateMessage('A new user joined!!'))
     })
     socket.on('sendMsg', (message, callback) => {
-        io.emit('message', message)
+        io.emit('message', generateMessage(message))
         callback()
     })
     socket.on('sendLocation', (message, callback) => {
-        socket.broadcast.emit('locationMessage', `https://google.com/maps?q=${message.latitude},${message.longitude}`)
+        socket.broadcast.emit('locationMessage', generateMessage(`https://google.com/maps?q=${message.latitude},${message.longitude}`))
         callback()
     })
     socket.on('disconnect', () => {
-        io.emit('message', "A new user left!!")
+        io.emit('message', generateMessage('A new user left!!'))
     })  
 })
 

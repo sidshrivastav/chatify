@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Node Chat App</title>
+        <title>Chatify</title>
+        <link rel="icon" href="./img/favicon.png">
+        <link rel="stylesheet" href="./css/styles.min.css">
     </head>
     <body>
-        <h1>Chat App</h1>
+        <div class="chat">
+            <div class="chat__sidebar">
 
-        <div id="messages"></div>
-
-        <form id="send-message-form">
-            <input placeholder="Write Message.." id="message-to-send">
-            <button>Send</button>
-        </form>
-        <button id="send-location">Share my location!!</button>
-
+            </div>
+            <div class="chat__main">
+                <div id="messages" class="chat__message"></div>
+                <div class="compose">
+                    <form id="send-message-form">
+                        <input placeholder="Write Message.." id="message-to-send">
+                        <button>Send</button>
+                    </form>
+                    <button id="send-location">Share my location!!</button>
+                </div>
+            </div>
+        </div>
+        
         <script id="message-template" type='text/html'>
-            <div>
+            <div class="message">
+                <p>
+                    <span class="message__name">John Doe</span>
+                    <span class="message__meta">{{createdAt}}</span>
+                </p>
                 <p>{{message}}</p>
             </div>
         </script>
 
         <script id="location-message-template" type='text/html'>
-            <div>
-                <p>My location: <a href="{{message}}" target="_blank">view</a></p>
-            </div>
+            <div class="message">
+                    <p>
+                        <span class="message__name">John Doe</span>
+                        <span class="message__meta">{{createdAt}}</span>
+                    </p>
+                    <p>My location: <a href="{{message}}" target="_blank">view</a></p>
+                </div>
         </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
